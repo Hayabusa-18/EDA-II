@@ -1,22 +1,3 @@
-/*Copyright (C) 
- * 2019 - eda1 dot fiunam at yahoo dot com dot mx
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
- */
-
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -29,10 +10,13 @@
 #include<math.h>
 
 #include "Queue.h"
+#include "DLL.h"
 // va con comillas porque es nuestro
 
 
 typedef int Item;
+
+size_t g_contador;
 
 void print( int* list, size_t tam, char* msg )
 {
@@ -51,8 +35,7 @@ int subKey( int val, int pos, int radix ){
 
 void collect( int list[], Queue* queues[], int radix ){
     size_t index = 0;
-    for (int i = 0; i < radix; ++i)
-    {
+    for (int i = 0; i < radix; ++i){
         while(Queue_IsEmpty(queues[i]) == false){
             int val;
             Queue_Dequeue(queues[i], &val);
@@ -61,6 +44,9 @@ void collect( int list[], Queue* queues[], int radix ){
             fprintf(stderr, "Desencolando el valor %d de la cola %ld y escribiendola en list[%ld] \n", val, i, index);
 
             ++index;
+
+            ++g_contador;
+            //incrementa la variable global 
         }
     }
 }
@@ -68,6 +54,9 @@ void collect( int list[], Queue* queues[], int radix ){
 void radix_sort( int list[], size_t elems, int pos, int radix ){
     Queues *queues[ radix ];
     // guarda las direcciones de 10 colas 
+
+    ++g_contador;
+    //incrementa la variable global
 
     for (int i = 0; i < radix; ++i){
         fprintf(stderr, "Creando la cola %ld\n", i);
@@ -100,6 +89,8 @@ int main()
 	print( list, NUM_ELEMS, "  Antes: " );
 
     radix_sort(list, NUM_ELEMS, 3, 10);
+
+    printf("contador %d\n", g_contador );
 
 	print( list, NUM_ELEMS, "Después: " );
 }
