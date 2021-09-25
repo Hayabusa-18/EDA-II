@@ -10,7 +10,6 @@
 #include<math.h>
 
 #include "Queue.h"
-#include "DLL.h"
 // va con comillas porque es nuestro
 
 
@@ -52,7 +51,7 @@ void collect( int list[], Queue* queues[], int radix ){
 }
 
 void radix_sort( int list[], size_t elems, int pos, int radix ){
-    Queues *queues[ radix ];
+    Queue *queues[ radix ];
     // guarda las direcciones de 10 colas 
 
     ++g_contador;
