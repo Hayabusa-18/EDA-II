@@ -40,7 +40,7 @@ void collect( int list[], Queue* queues[], int radix ){
             Queue_Dequeue(queues[i], &val);
             list[index] = val;
 
-            fprintf(stderr, "Desencolando el valor %d de la cola %ld y escribiendola en list[%ld] \n", val, i, index);
+            fprintf(stderr, "Desencolando el valor %d de la cola %d y escribiendola en list[%d] \n", val, i, index);
 
             ++index;
 
@@ -58,23 +58,23 @@ void radix_sort( int list[], size_t elems, int pos, int radix ){
     //incrementa la variable global
 
     for (int i = 0; i < radix; ++i){
-        fprintf(stderr, "Creando la cola %ld\n", i);
+        fprintf(stderr, "Creando la cola %d\n", i);
         queues[i] = Queue_New();
     }
 
     for (int i = 1; i <= pos; ++i){
-        fprintf(stderr, "Ronda %ld\n", i);
+        fprintf(stderr, "Ronda %d\n", i);
 
         for (int j = 0; j < elems; ++j){
 
             size_t whichQ = subKey( list[j], i, radix);
-            fprintf(stderr, "Encolando el valor %d en la cola%ld\n", list[j], whichQ);
+            fprintf(stderr, "Encolando el valor %d en la cola%d\n", list[j], whichQ);
             Queue_Enqueue( queues[whichQ], list[j]);
         }
     }
 
     for (int i = 0; i < radix; ++i){
-        fprintf(stderr, "Eliminando la cola %ld\n", i);
+        fprintf(stderr, "Eliminando la cola %d\n", i);
         Queue_Delete( queues[i]);
     }
 }
