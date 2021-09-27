@@ -37,12 +37,12 @@ void print( int* list, size_t tam, char* msg )
  * @param low    Índice al primer elemento de la lista.
  * @param high   Índice al último elemento de la lista.
  */
-void counting_sort( int list[], size_t elems, size_t low, size_t high ){
+void counting_sort( int list[], size_t num_elems, size_t low, size_t high ){
     size_t capacity = high - low +1;
     fprintf(stderr, "Capacity: %ld\n", capacity);
     int* aux = calloc(capacity, sizeof(int));
 
-    for (int i = 0; i < elems; ++i){
+    for (size_t i = 0; i < num_elems; ++i){
         size_t pos = list[i];
         
         int acum = aux[pos];
@@ -53,8 +53,8 @@ void counting_sort( int list[], size_t elems, size_t low, size_t high ){
     }
 
     size_t j = 0;
-    for (int i = 0; i < capacity; ++i){
-        for (int reps = 0; reps < aux[i]; --reps){
+    for (size_t i = 0; i < capacity; ++i){
+        for (size_t reps = aux[i]; reps > 0; --reps){
             list[j] = i;
             ++j;
         }
