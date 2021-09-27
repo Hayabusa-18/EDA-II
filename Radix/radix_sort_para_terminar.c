@@ -17,27 +17,32 @@ typedef int Item;
 
 size_t g_contador;
 
-void print( int* list, size_t tam, char* msg )
+void print( int* list, int tam, char* msg )
 {
 	printf( "%s", msg );
-	for( size_t i = 0; i < tam; ++i ){
+	for( int i = 0; i < tam; ++i ){
 		printf( "%d, ", list[ i ] );
 	}
 	printf( "\n" );
 }
 
 int subKey( int val, int pos, int radix ){
-    int divisor = pow(10.0, pos - 1);
+    
+    int divisor = pow(10, pos - 1);
 
-    int resultado = (int) ((val / divisor) % radix);
+    int res = (int)+((val / divisor) % radix);
+
+    return res;
 }
 
 void collect( int list[], Queue* queues[], int radix ){
-    size_t index = 0;
+    int index = 0;
     for (int i = 0; i < radix; ++i){
         while(Queue_IsEmpty(queues[i]) == false){
+            
             int val;
             Queue_Dequeue(queues[i], &val);
+            
             list[index] = val;
 
             fprintf(stderr, "Desencolando el valor %d de la cola %d y escribiendola en list[%d] \n", val, i, index);
@@ -50,7 +55,7 @@ void collect( int list[], Queue* queues[], int radix ){
     }
 }
 
-void radix_sort( int list[], size_t elems, int pos, int radix ){
+void radix_sort( int list[], int elems, int pos, int radix ){
     Queue *queues[ radix ];
     // guarda las direcciones de 10 colas 
 
@@ -67,10 +72,12 @@ void radix_sort( int list[], size_t elems, int pos, int radix ){
 
         for (int j = 0; j < elems; ++j){
 
-            size_t whichQ = subKey( list[j], i, radix);
+            int whichQ = subKey( list[j], i, radix);
             fprintf(stderr, "Encolando el valor %d en la cola%d\n", list[j], whichQ);
             Queue_Enqueue( queues[whichQ], list[j]);
         }
+
+        collect(list, queues, radix);
     }
 
     for (int i = 0; i < radix; ++i){
@@ -89,7 +96,7 @@ int main()
 
     radix_sort(list, NUM_ELEMS, 3, 10);
 
-    printf("contador %d\n", g_contador );
+    printf("contador %ld\n", g_contador );
 
 	print( list, NUM_ELEMS, "Después: " );
 }
