@@ -7,6 +7,8 @@
 #include <iso646.h>
 // and, or, not
 
+#include <time.h>
+
 #include<math.h>
 
 #include "Queue.h"

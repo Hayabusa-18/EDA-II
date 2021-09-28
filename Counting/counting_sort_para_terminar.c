@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <iso646.h>
+#include <time.h>
 
 int maximo( int list[], size_t elems ){
     int max;
@@ -76,15 +77,23 @@ void counting_sort( int list[], size_t num_elems, size_t low, size_t high ){
     free(aux);
 }
 
-#define NUM_ELEMS 7
+#define NUM_ELEMS 40
 
-int main()
-{
-	int list[ NUM_ELEMS ] = { 1, 4, 1, 2, 7, 5, 2 };
+int main(){
+	
+    //int list[ NUM_ELEMS ] = { 1, 4, 1, 2, 7, 5, 2 };
+
+    srand(time(NULL));
+
+    int list[NUM_ELEMS];
+
+    for (int i = 0; i < NUM_ELEMS; ++i){
+        list[i] = rand() % 4000;
+    }
 
 	print( list, NUM_ELEMS, "  Antes: " );
 
-    counting_sort(list, NUM_ELEMS, 0, 7);
+    counting_sort(list, NUM_ELEMS, minimo(list, NUM_ELEMS), maximo(list, NUM_ELEMS));
 
 	print( list, NUM_ELEMS, "Después: " );
 
