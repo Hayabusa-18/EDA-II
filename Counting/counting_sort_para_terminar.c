@@ -7,6 +7,8 @@
 #include <iso646.h>
 #include <time.h>
 
+size_t g_contador;
+
 int maximo( int list[], size_t elems ){
     int max;
     for (int i = 0; i < elems; i++){
@@ -64,6 +66,7 @@ void counting_sort( int list[], size_t num_elems, size_t low, size_t high ){
         aux[pos] = acum;
         
         //aux[pos]++;
+        ++g_contador;
     }
 
     size_t j = 0;
@@ -71,13 +74,14 @@ void counting_sort( int list[], size_t num_elems, size_t low, size_t high ){
         for (size_t reps = aux[i]; reps > 0; --reps){
             list[j] = i;
             ++j;
+            ++g_contador;
         }
     }
 
     free(aux);
 }
 
-#define NUM_ELEMS 40
+#define NUM_ELEMS 50
 
 int main(){
 	
@@ -88,7 +92,7 @@ int main(){
     int list[NUM_ELEMS];
 
     for (int i = 0; i < NUM_ELEMS; ++i){
-        list[i] = rand() % 4000;
+        list[i] = rand() % 50;
     }
 
 	print( list, NUM_ELEMS, "  Antes: " );
@@ -96,6 +100,8 @@ int main(){
     counting_sort(list, NUM_ELEMS, minimo(list, NUM_ELEMS), maximo(list, NUM_ELEMS));
 
 	print( list, NUM_ELEMS, "Después: " );
+
+    printf("\nContador: %ld\n", g_contador);
 
     printf("Maximo: %d\n", maximo(list, NUM_ELEMS));
 

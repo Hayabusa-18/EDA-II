@@ -47,7 +47,7 @@ void collect( int list[], Queue* queues[], int radix ){
             
             list[index] = val;
 
-            fprintf(stderr, "Desencolando el valor %d de la cola %d y escribiendola en list[%d] \n", val, i, index);
+            //fprintf(stderr, "Desencolando el valor %d de la cola %d y escribiendola en list[%d] \n", val, i, index);
 
             ++index;
 
@@ -65,17 +65,17 @@ void radix_sort( int list[], int elems, int pos, int radix ){
     //incrementa la variable global
 
     for (int i = 0; i < radix; ++i){
-        fprintf(stderr, "Creando la cola %d\n", i);
+        //fprintf(stderr, "Creando la cola %d\n", i);
         queues[i] = Queue_New();
     }
 
     for (int i = 1; i <= pos; ++i){
-        fprintf(stderr, "Ronda %d\n", i);
+        //fprintf(stderr, "Ronda %d\n", i);
 
         for (int j = 0; j < elems; ++j){
 
             int whichQ = subKey( list[j], i, radix);
-            fprintf(stderr, "Encolando el valor %d en la cola%d\n", list[j], whichQ);
+            //fprintf(stderr, "Encolando el valor %d en la cola%d\n", list[j], whichQ);
             Queue_Enqueue( queues[whichQ], list[j]);
         }
 
@@ -83,22 +83,30 @@ void radix_sort( int list[], int elems, int pos, int radix ){
     }
 
     for (int i = 0; i < radix; ++i){
-        fprintf(stderr, "Eliminando la cola %d\n", i);
+        //fprintf(stderr, "Eliminando la cola %d\n", i);
         Queue_Delete( queues[i]);
     }
 }
 
-#define NUM_ELEMS 7
+#define NUM_ELEMS 50
 
 int main()
 {
-	Item list[ NUM_ELEMS ] = { 630, 421, 527, 911, 912, 266, 85 };
+	//Item list[ NUM_ELEMS ] = { 630, 421, 527, 911, 912, 266, 85 };
+
+    srand(time(NULL));
+
+    int list[NUM_ELEMS];
+
+    for (int i = 0; i < NUM_ELEMS; ++i){
+        list[i] = rand() % 50;
+    }
 
 	print( list, NUM_ELEMS, "  Antes: " );
 
-    radix_sort(list, NUM_ELEMS, 3, 10);
+    radix_sort(list, NUM_ELEMS, 4, 49);
 
-    printf("contador %ld\n", g_contador );
+    printf("\ncontador %ld\n", g_contador );
 
 	print( list, NUM_ELEMS, "Después: " );
 }
