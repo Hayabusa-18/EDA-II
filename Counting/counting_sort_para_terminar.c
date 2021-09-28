@@ -4,13 +4,26 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <iso646.h>
 
-int max( int list[], size_t elems ){
-    return 0;
+int maximo( int list[], size_t elems ){
+    int max;
+    for (int i = 0; i < elems; i++){
+        if (i == 0 or max < list[i] ){
+            max = list[i];
+        }
+    }
+    return max;
 }
 
-int min( int list[], size_t elems ){
-    return 0;
+int minimo( int list[], size_t elems ){
+    int min;
+    for (int i = 0; i < elems; ++i){
+        if (i == 0 or min > list[i] ){
+            min = list[i];
+        }
+    }
+    return min;
 }
 
 /**
@@ -74,5 +87,9 @@ int main()
     counting_sort(list, NUM_ELEMS, 0, 7);
 
 	print( list, NUM_ELEMS, "Después: " );
+
+    printf("Maximo: %d\n", maximo(list, NUM_ELEMS));
+
+    printf("Minimo: %d\n", minimo(list, NUM_ELEMS));
 }
 
