@@ -92,7 +92,7 @@ int main(){
     int list[NUM_ELEMS];
 
     for (int i = 0; i < NUM_ELEMS; ++i){
-        list[i] = rand() % 50;
+        list[i] = rand() % 1000 + 1000;
     }
 
 	print( list, NUM_ELEMS, "  Antes: " );
